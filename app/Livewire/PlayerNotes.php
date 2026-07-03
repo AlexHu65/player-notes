@@ -17,6 +17,8 @@ class PlayerNotes extends Component
 
     public string $content = '';
 
+    public int $contentVersion = 0;
+
     protected function rules(): array
     {
         return [
@@ -66,9 +68,16 @@ class PlayerNotes extends Component
         );
 
         $this->reset('content');
+        $this->resetValidation();
+        $this->contentVersion++;
         $this->resetPage();
 
-        $this->dispatch('note-added', ['message' => 'Note added successfully.']);
+        $this->dispatch('note-added');
+    }
+
+    #[On('note-added')]
+    public function refreshNotes(): void
+    {
     }
 
     public function render(PlayerNoteRepositoryInterface $repository)

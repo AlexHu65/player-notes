@@ -108,7 +108,7 @@ sail artisan key:generate
 sail artisan migrate --seed
 ```
 
-### 7) Frontend (opcional, para desarrollo)
+### 7) Frontend
 
 ```bash
 npm run dev
@@ -241,6 +241,18 @@ Luego:
 
 Nota:
 - Fuera de Sail (`php artisan ...` en host), usa `DB_HOST=127.0.0.1` y `DB_PORT=3307` (o tu `FORWARD_DB_PORT`).
+- Dentro de Sail, `DB_PORT` debe ser `3306` (puerto interno del servicio `mysql`), no el `FORWARD_DB_PORT`.
+
+Si después de corregir el puerto aparece:
+
+```text
+SQLSTATE[HY000] [1045] Access denied for user 'sail'@'...'
+```
+
+normalmente el volumen de MySQL fue inicializado antes y no contiene el usuario `sail`. Puedes resolverlo de dos formas:
+
+1. Crear/actualizar usuario y permisos manualmente dentro del contenedor MySQL.
+2. Recrear el volumen de MySQL (esto elimina los datos locales) y volver a ejecutar migraciones/seeders.
 
 ### 3) No application encryption key has been specified
 

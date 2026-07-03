@@ -65,13 +65,14 @@
 
     @can('create-player-note')
         <form wire:submit.prevent="save" class="mt-6">
-            <textarea
-                wire:model="content"
-                maxlength="1000"
-                rows="3"
-                class="w-full border rounded p-2"
-                placeholder="Escribe una nota interna sobre este jugador..."
-            ></textarea>
+                <textarea
+                    wire:key="content-{{ $contentVersion }}"
+                    wire:model="content"
+                    maxlength="1000"
+                    rows="3"
+                    class="w-full border rounded p-2"
+                    placeholder="Escribe una nota interna sobre este jugador..."
+                ></textarea>
 
             @error('content')
                 <span class="text-red-600 text-sm">{{ $message }}</span>
