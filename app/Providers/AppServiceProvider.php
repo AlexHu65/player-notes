@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\PlayerNoteRepositoryInterface;
+use App\Repositories\Eloquent\EloquentPlayerNoteRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +18,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \App\Repositories\Contracts\PlayerNoteRepositoryInterface::class,
-            \App\Repositories\Eloquent\PlayerNoteRepository::class,
+            PlayerNoteRepositoryInterface::class,
+            EloquentPlayerNoteRepository::class,
         );
     }
 
